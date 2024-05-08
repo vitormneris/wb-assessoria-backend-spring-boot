@@ -11,7 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
-    private String id ;
+
+    private String id;
     private String description;
     private PaymentStatus status;
 }
