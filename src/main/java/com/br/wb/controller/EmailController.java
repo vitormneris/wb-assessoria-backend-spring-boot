@@ -1,5 +1,6 @@
 package com.br.wb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,9 @@ import com.br.wb.dto.EmailDTO;
 @RestController
 @RequestMapping("/email")
 public class EmailController {
-	private final EmailService emailService;
-	
-	public EmailController(EmailService emailService) {
-		this.emailService = emailService;
-	}
+
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping
 	public void sendEmail(@RequestBody EmailDTO email) {

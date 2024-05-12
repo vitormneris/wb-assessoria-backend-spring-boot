@@ -31,6 +31,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	implementation group: 'org.openqa.selenium', name: 'selenium', version: '0.8.1', ext: 'pom'
+
 }
 
 tasks.named('test') {
