@@ -1,9 +1,6 @@
 package com.br.wb.dto.proceedings;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,7 +8,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movements {
+@Builder
+public class MovementsDTO {
     private List<ComplementoTabelado> complementosTabelados;
     private int codigo;
     private String nome;

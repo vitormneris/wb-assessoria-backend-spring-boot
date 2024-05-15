@@ -10,9 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment {
+public class MonthlyPayment {
 
     private String id;
     private String description;
     private PaymentStatus status;
+    private Double tuitionFees;
 }
