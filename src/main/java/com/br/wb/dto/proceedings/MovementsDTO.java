@@ -4,22 +4,21 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Builder
-public class MovementsDTO {
-    private List<ComplementoTabelado> complementosTabelados;
-    private int codigo;
-    private String nome;
-    private String dataHora;
+public record MovementsDTO(
+        List<ComplementoTabeladoDTO> complementosTabelados,
+        int codigo,
+        String nome,
+        @Getter
+        String dataHora) {
+
 
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    static class ComplementoTabelado {
+    public static class ComplementoTabeladoDTO {
         private int codigo;
         private int valor;
         private String nome;

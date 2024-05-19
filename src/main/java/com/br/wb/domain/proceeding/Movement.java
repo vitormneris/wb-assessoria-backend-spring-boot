@@ -18,7 +18,7 @@ public class Movement {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    static class ComplementoTabelado {
+    public static class ComplementoTabelado {
         private int codigo;
         private int valor;
         private String nome;

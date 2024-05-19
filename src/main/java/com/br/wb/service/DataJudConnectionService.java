@@ -1,15 +1,12 @@
 package com.br.wb.service;
 
-import com.br.wb.dto.proceedings.HitsDTO;
-import com.br.wb.dto.proceedings.SourceDTO;
-import com.br.wb.dto.proceedings.mapper.HitsWebMapper;
+import com.br.wb.domain.LastProcessMovement;
 import com.br.wb.dto.proceedings.mapper.DeserializeJsonMapper;
-import com.br.wb.respositories.ProceedingsRepository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,13 +16,19 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class ProceedingsService {
-    private final ProceedingsRepository proceedingsRepository;
-    private final DeserializeJsonMapper deserializeJsonMapper;
-    private final HitsWebMapper hitsWebMapper;
+public class DataJudConnectionService {
 
-    public List<HitsDTO> procurarPorNumero(String numeroProcesso) throws IOException {
-        String url = "https://api-publica.datajud.cnj.jus.br/api_publica_trf1/_search";
+    private final DeserializeJsonMapper deserializeJsonMapper;
+
+
+    @Value("${api.url}")
+    String url;
+
+    @Value("${api.token}")
+    String token;
+
+    public List<LastProcessMovement> procurarPorNumero(String numeroProcesso) throws IOException {
+
 
         Map<String, Object> query = new HashMap<>();
         Map<String, Object> match = new HashMap<>();
@@ -36,7 +39,7 @@ public class ProceedingsService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "APIKey cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw==");
+        headers.set("Authorization", token);
 
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
