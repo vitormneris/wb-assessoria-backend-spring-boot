@@ -14,18 +14,18 @@ public class WhatsappService {
 	@Autowired
 	private WebDriver webDriver;
 
-	public void sendMessage(WhatsappMessageDTO mensagem) {
-		for (String contato : mensagem.contacts()) {
+	public void sendMessage(WhatsappMessageDTO message) {
+		for (String contact : message.contacts()) {
 			try {
-				var elementoContato = findContact(contato);
-				elementoContato.click();
+				var elementContact = findContact(contact);
+				elementContact.click();
 
-				var caixaMensagem = findLabelText();
-				caixaMensagem.sendKeys(mensagem.subject());
-				caixaMensagem.sendKeys(Keys.RETURN);
+				var labelText = findLabelText();
+				labelText.sendKeys(message.subject());
+				labelText.sendKeys(Keys.RETURN);
 
-				elementoContato = findContact("Notação Científica");
-				elementoContato.click();
+				elementContact = findContact("Notação Científica");
+				elementContact.click();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -39,9 +39,9 @@ public class WhatsappService {
 				if (newMessageIndicator != null) {
 					newMessageIndicator.click();
 
-					var caixaMensagem = findLabelText();
-					caixaMensagem.sendKeys("Este número está sendo usado para testes de automação, tente novamente mais tarde.");
-					caixaMensagem.sendKeys(Keys.RETURN);
+					var labelText = findLabelText();
+					labelText.sendKeys("Este número está sendo usado para testes de automação, tente novamente mais tarde.");
+					labelText.sendKeys(Keys.RETURN);
 				}
 				Thread.sleep(500);
 			} catch (Exception e) {
@@ -50,8 +50,8 @@ public class WhatsappService {
 		}
 	}
 
-	private WebElement findContact(String nomeContato) {
-		var xPathContact = "//*[@id=\"pane-side\"]/*//span[@title='" + nomeContato + "']";
+	private WebElement findContact(String contactName) {
+		var xPathContact = "//*[@id=\"pane-side\"]/*//span[@title='" + contactName + "']";
 		return webDriver.findElement(By.xpath(xPathContact));
 	}
 
