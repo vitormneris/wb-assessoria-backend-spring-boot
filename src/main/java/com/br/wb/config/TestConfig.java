@@ -28,6 +28,7 @@ public class TestConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         mongoTemplate.getDb().drop();
 
+        // UserId: 123
         Installment installment1 =
                 new Installment(null, "123", "Parcela: processo de naturalização", 229.0, LocalDateTime.parse("2024-03-01T00:00:00"), LocalDateTime.parse("2024-03-30T00:00:00" ), PaymentStatus.PAGO);
         Installment installment2 =
@@ -35,6 +36,14 @@ public class TestConfig implements CommandLineRunner {
         Installment installment3 =
                 new Installment(null, "123", "Parcela: processo de naturalização", 229.0, LocalDateTime.parse("2024-05-01T00:00:00"), LocalDateTime.parse("2024-05-30T00:00:00" ), PaymentStatus.PENDENTE);
 
-        installmentRepository.saveAll(Arrays.asList(installment1, installment2, installment3));
+        // UserId: 321
+        Installment installment4 =
+                new Installment(null, "321", "Parcela: processo de naturalização", 229.0, LocalDateTime.parse("2024-03-01T00:00:00"), LocalDateTime.parse("2024-03-30T00:00:00" ), PaymentStatus.PAGO);
+        Installment installment5 =
+                new Installment(null, "321", "Parcela: processo de naturalização", 229.0, LocalDateTime.parse("2024-03-01T00:00:00"), LocalDateTime.parse("2024-03-30T00:00:00" ), PaymentStatus.VENCIDO);
+        Installment installment6 =
+                new Installment(null, "321", "Parcela: processo de naturalização", 229.0, LocalDateTime.parse("2024-05-01T00:00:00"), LocalDateTime.parse("2024-05-30T00:00:00" ), PaymentStatus.PENDENTE);
+
+        installmentRepository.saveAll(Arrays.asList(installment1, installment2, installment3, installment4, installment5, installment6));
     }
 }
