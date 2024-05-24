@@ -29,5 +29,4 @@ public class Installment {
     private LocalDateTime dueDate;
 
     private PaymentStatus paymentStatus;
-
 }
