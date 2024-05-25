@@ -19,6 +19,7 @@ public class Installment {
 
     private String id;
     private String userId;
+    private Integer numberOfInstallment;
     private String description;
     private Double amount;
 

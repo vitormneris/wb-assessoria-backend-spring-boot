@@ -26,18 +26,18 @@ public class InstallmentService {
     }
 
     public List<Installment> insert(InstallmentDTO installmentDTO) {
-        Double amount = installmentDTO.totalAmount() / installmentDTO.number();
-        LocalDateTime date = installmentDTO.date();
 
         List<Installment> installmentList = new ArrayList<>();
-        for (int i = 0; i < installmentDTO.number(); i++) {
+        for (int i = 0; i < installmentDTO.quantityInstallment(); i++) {
+            Integer numberOfInstallment = (i + 1);
             Installment installment = new Installment(
                     null,
                     installmentDTO.userId(),
-                    "Parcela " + (i + 1) + ": " + installmentDTO.description(),
-                    amount,
-                    date.plusMonths(i),
-                    date.plusMonths(i + 1),
+                    numberOfInstallment,
+                    "Parcela " + numberOfInstallment + ": " + installmentDTO.description(),
+                    installmentDTO.totalAmount() / installmentDTO.quantityInstallment(),
+                    installmentDTO.date().plusMonths(i),
+                    installmentDTO.date().plusMonths(i + 1),
                     PaymentStatus.PENDENTE);
 
             installmentList.add(installment);
@@ -49,32 +49,23 @@ public class InstallmentService {
     public List<Installment> update(String userId, InstallmentDTO installmentDTO) {
         List<Installment> installmentList = repository.findAllByUserId(userId);
 
-        String description = installmentDTO.description();
-        Double amount = installmentDTO.totalAmount() / installmentDTO.number();
-        LocalDateTime date = installmentDTO.date();
-
         List<Installment> installmentListModified = new ArrayList<>();
         int i = 0;
         for (Installment installment : installmentList) {
-            i++;
-            installment.setDescription(description);
-            installment.setAmount(amount);
-            installment.setIssueDate(date.plusMonths(i));
-            installment.setDueDate(date.plusMonths(i + 1));
+            installment.setDescription(installmentDTO.description());
+            installment.setAmount(installmentDTO.totalAmount() / installmentDTO.quantityInstallment());
+            installment.setDueDate(installmentDTO.date().plusMonths(i));
+
             installmentListModified.add(installment);
+            i++;
         }
 
         return repository.saveAll(installmentListModified);
     }
 
-    public Installment updateStatusPayment(String id,  PaymentStatus paymentStatus) {
+    public Installment updateDueDate(String id, InstallmentDTO installmentDTO) {
         Installment installment = repository.findById(id).orElseThrow();
-        installment.setPaymentStatus(paymentStatus);
-
+        installment.setDueDate(installmentDTO.date());
         return repository.save(installment);
-    }
-
-    public void deleteAllByUserId(String userId) {
-        repository.deleteAllByUserId(userId);
     }
 }
