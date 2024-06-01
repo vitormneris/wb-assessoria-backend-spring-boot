@@ -7,8 +7,8 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY src/ src/
 
-# Comentar a linha de build para pular os testes
-# RUN gradle build --no-daemon
+# Executar o build, desabilitando os testes
+RUN gradle build --no-daemon -x test
 
 # Etapa de produção
 FROM eclipse-temurin:21-jre-alpine
