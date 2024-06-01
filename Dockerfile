@@ -3,6 +3,17 @@ FROM gradle:8.7-jdk21-alpine AS build
 
 WORKDIR /home/gradle/src
 
+# Instalar dependências necessárias
+RUN apk add --no-cache \
+    wget \
+    unzip \
+    xvfb \
+    chromium \
+    chromium-chromedriver
+
+# Definir porta de exibição para evitar falhas
+ENV DISPLAY=:99
+
 # Copiar arquivos gradle e código-fonte
 COPY build.gradle .
 COPY settings.gradle .
@@ -10,6 +21,9 @@ COPY src/ src/
 
 # Realizar o build do Gradle e salvar logs de erro
 RUN gradle build --no-daemon
+
+# Etapa de produção
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
