@@ -1,3 +1,4 @@
+# Etapa de construção
 FROM gradle:8.7-jdk21-alpine AS build
 
 WORKDIR /home/gradle/src
@@ -12,9 +13,16 @@ COPY src/ src/
 # Realizar o build do Gradle
 RUN gradle build --no-daemon
 
+# Etapa de produção
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+# Copiar o arquivo JAR gerado durante o build
+COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
+
+# Expor a porta 8080
 EXPOSE 8080
 
-# Copiar o arquivo JAR gerado durante o build com Gradle
-COPY --from=build /out/artifacts/wb_jar/wb.jar app.jar
-
+# Definir o comando de entrada
 ENTRYPOINT ["java", "-jar", "app.jar"]
