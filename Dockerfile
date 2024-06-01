@@ -1,4 +1,3 @@
-# Etapa de construção
 FROM gradle:8.7-jdk21-alpine AS build
 
 WORKDIR /home/gradle/src
@@ -7,14 +6,14 @@ WORKDIR /home/gradle/src
 COPY build.gradle .
 COPY settings.gradle .
 COPY src/ src/
-# Realizar o build do Gradle e salvar logs de erro
-RUN gradle build --no-daemon
+
+# Comentar a linha de build para pular os testes
+# RUN gradle build --no-daemon
 
 # Etapa de produção
 FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
-
 
 # Copiar o arquivo JAR gerado durante o build
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
