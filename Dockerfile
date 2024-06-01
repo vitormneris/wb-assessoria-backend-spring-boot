@@ -11,9 +11,6 @@ COPY src/ src/
 # Realizar o build do Gradle e salvar logs de erro
 RUN gradle build --no-daemon
 
-# Etapa de produção
-FROM eclipse-temurin:21-jre-alpine
-
 WORKDIR /app
 
 # Copiar o arquivo JAR gerado durante o build
