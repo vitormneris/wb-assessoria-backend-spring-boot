@@ -7,7 +7,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.br.wb.model.Usuario;
+import com.br.wb.domain.Usuario;
 import com.br.wb.repository.UsuarioRepository;
 
 @Service
@@ -32,14 +32,13 @@ public class UsuarioService {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if (usuario.isPresent()) {
             Usuario usuarioAtualizado = usuario.get();
-            //usuarioAtualizado.setName(novoUsuario.getName());
-            //usuarioAtualizado.setEndereco(novoUsuario.getEndereco());
-            //usuarioAtualizado.setTelefone(novoUsuario.getTelefone());
-            //usuarioAtualizado.setEmail(novoUsuario.getEmail());
+            usuarioAtualizado.setName(novoUsuario.getName());
+            usuarioAtualizado.setPhoneNumber(novoUsuario.getPhoneNumber());
+            usuarioAtualizado.setEmail(novoUsuario.getEmail());
+            usuarioAtualizado.setPassword(novoUsuario.getPassword());
             return usuarioRepository.save(usuarioAtualizado);
         } else throw new Exception("Usuario não encontrado");
     }
-
     public void deletar(String id) {
         usuarioRepository.deleteById(id);
     }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.wb.dto.UsuarioDTO;
 import com.br.wb.mapper.UsuarioMapper;
-import com.br.wb.model.Usuario;
+import com.br.wb.domain.Usuario;
 import com.br.wb.service.UsuarioService;
 
 @RestController

@@ -1,8 +1,9 @@
-package com.br.wb.model;
+package com.br.wb.domain;
 
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties
 public class Usuario {
 	@Id
     private String id;
@@ -35,6 +37,6 @@ public class Usuario {
     public static class RNMDocument {
         private String number;
         private String classification;
-        private Date dateOfIssue;
+        private String dateOfIssue;
     }
 }
