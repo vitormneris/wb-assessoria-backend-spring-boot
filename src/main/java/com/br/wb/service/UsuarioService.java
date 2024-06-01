@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.wb.domain.Usuario;
-import com.br.wb.repository.UsuarioRepository;
+import com.br.wb.respositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {

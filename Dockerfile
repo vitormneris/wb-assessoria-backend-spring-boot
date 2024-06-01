@@ -1,12 +1,14 @@
-# Etapa de construção simplificada
+# Etapa de construção
 FROM gradle:8.7-jdk21-alpine AS build
 
 WORKDIR /home/gradle/src
 
-# Copiar o código-fonte e arquivos de configuração
-COPY . .
+# Copiar arquivos gradle e código-fonte
+COPY build.gradle .
+COPY settings.gradle .
+COPY src/ src/
 
-# Realizar o build do Gradle
+# Realizar o build do Gradle e salvar logs de erro
 RUN gradle build --no-daemon
 
 # Etapa de produção
@@ -21,4 +23,4 @@ COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 EXPOSE 8080
 
 # Definir o comando de entrada
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
