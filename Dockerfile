@@ -1,14 +1,10 @@
-# Etapa de construção
+# Etapa de construção simplificada
 FROM gradle:8.7-jdk21-alpine AS build
 
 WORKDIR /home/gradle/src
 
-# Copiar o arquivo build.gradle e settings.gradle para a imagem
-COPY build.gradle .
-COPY settings.gradle .
-
-# Copiar o código-fonte
-COPY src/ src/
+# Copiar o código-fonte e arquivos de configuração
+COPY . .
 
 # Realizar o build do Gradle
 RUN gradle build --no-daemon
