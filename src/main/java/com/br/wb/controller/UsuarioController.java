@@ -23,8 +23,10 @@ import com.br.wb.service.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
     @Autowired
     private UsuarioService usuarioService;
+
     @Autowired
     private UsuarioMapper usuarioMapper;
 
@@ -50,11 +52,34 @@ public class UsuarioController {
         Usuario model = usuarioMapper.mapToModel(usuarioDTO);
         return ResponseEntity.ok().body(usuarioService.atualizar(id, model));
     }
-    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable String id) {
         usuarioService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<ApiResponse> authenticate(@RequestBody UsuarioDTO usuarioDTO) {
+        Usuario model = usuarioMapper.mapToModel(usuarioDTO);
+        String userId = usuarioService.authenticate(model);
+        if (userId != null) return ResponseEntity.ok(new ApiResponse(userId));
+        return ResponseEntity.status(401).body(new ApiResponse("Not authorized"));
+    }
+}
+
+class ApiResponse {
+    private String message;
+
+    public ApiResponse(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
