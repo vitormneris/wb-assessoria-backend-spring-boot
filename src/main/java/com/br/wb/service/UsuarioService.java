@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.br.wb.domain.Usuario;
 import com.br.wb.respositories.UsuarioRepository;
 
+
+
 @Service
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-
 
     public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
@@ -41,5 +43,12 @@ public class UsuarioService {
     }
     public void deletar(String id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public String authenticate(Usuario usuarioAuth) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioAuth.getEmail());
+        if (usuario.isPresent())
+            if (usuario.get().getPassword().equals(usuarioAuth.getPassword())) return usuario.get().getId();
+        return null;
     }
 }
