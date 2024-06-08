@@ -33,7 +33,7 @@ public class DeserializeJsonMapper {
                 ObjectMapper objectMapper = new ObjectMapper();
                 Proceeding proceedingInfo = objectMapper.treeToValue(sourceNode, Proceeding.class);
 
-               var recentMove = findLastMove(proceedingInfo);
+                Movement recentMove = findLastMove(proceedingInfo);
                 LastProcessMovement hit = new LastProcessMovement();
                 hit.setMovimentoMaisRecente(recentMove);
                 hit.setInformations(proceedingInfo);
@@ -46,6 +46,7 @@ public class DeserializeJsonMapper {
     }
 
     public Movement findLastMove(Proceeding proceeding) {
+
         List<Movement> movimentos = proceeding.getMovimentos();
         if (movimentos == null) {
             return null;
@@ -53,13 +54,20 @@ public class DeserializeJsonMapper {
         Movement movimentoMaisRecente = movimentos.stream()
                 .max(Comparator.comparing(m -> ZonedDateTime.parse(m.getDataHora())))
                 .orElse(null);
-        assert movimentoMaisRecente != null;
+
+        if (movimentoMaisRecente != null) {
+            if (movimentoMaisRecente.getComplementosTabelados() == null) {
+                movimentoMaisRecente.setComplementosTabelados(new ArrayList<>());
+            }
+        }
+
         return movimentoMaisRecente;
     }
-
-
-
 }
+
+
+
+
 
 
 

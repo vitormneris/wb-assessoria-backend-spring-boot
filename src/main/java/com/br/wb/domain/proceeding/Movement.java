@@ -2,6 +2,7 @@ package com.br.wb.domain.proceeding;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -10,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Movement {
-    private List<ComplementoTabelado> complementosTabelados;
+    private List<ComplementoTabelado> complementosTabelados = new ArrayList<>();
     private int codigo;
     private String nome;
     private String dataHora;

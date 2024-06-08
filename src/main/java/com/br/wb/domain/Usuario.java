@@ -20,7 +20,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties
 public class Usuario {
-	@Id
+    public static Usuario.RNMDocument RNMDocument;
+    @Id
     private String id;
     private String name;
     private String email;
