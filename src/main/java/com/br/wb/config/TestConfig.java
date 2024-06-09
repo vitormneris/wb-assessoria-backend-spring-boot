@@ -50,6 +50,7 @@ public class TestConfig implements CommandLineRunner {
                 new Installment(null, "321", 3, "Parcela 3: processo de naturalização", 229.0, LocalDateTime.parse("2024-05-01T00:00:00"), LocalDateTime.parse("2024-05-30T00:00:00" ), PaymentStatus.PENDENTE);
 
         installmentRepository.saveAll(Arrays.asList(installment1, installment2, installment3, installment4, installment5, installment6));
+
         List<String> telefones = new ArrayList<>();
         String tel1 = "11955696863";
         String tel2 = "11955696864";
@@ -59,8 +60,7 @@ public class TestConfig implements CommandLineRunner {
         telefones.add(tel3);
 
         Usuario.RNMDocument rnm = new Usuario.RNMDocument("12345640","classificação","11/10/2005");
-        Usuario usuario = new Usuario(null, "Neris pinto","nerispinto@gmail.com","1234","111111111111",rnm,"paquistão",telefones );
+        Usuario usuario = new Usuario(null, "Boliva Safado","boliva@gmail.com","1234","111111111111",rnm,"Bolivia",telefones );
         usuarioRepository.save(usuario);
-
     }
 }

@@ -20,7 +20,6 @@ public class DataJudConnectionService {
 
     private final DeserializeJsonMapper deserializeJsonMapper;
 
-
     @Value("${api.url}")
     String url;
 
@@ -28,8 +27,6 @@ public class DataJudConnectionService {
     String token;
 
     public List<LastProcessMovement> procurarPorNumero(String numeroProcesso) throws IOException {
-
-
         Map<String, Object> query = new HashMap<>();
         Map<String, Object> match = new HashMap<>();
         match.put("numeroProcesso", numeroProcesso);
