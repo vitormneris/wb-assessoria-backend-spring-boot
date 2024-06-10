@@ -1,19 +1,18 @@
 package com.br.wb.config;
 
 import com.br.wb.domain.Installment;
-import com.br.wb.domain.Usuario;
+import com.br.wb.domain.User;
 import com.br.wb.enums.PaymentStatus;
 import com.br.wb.respositories.InstallmentRepository;
-import com.br.wb.respositories.UsuarioRepository;
+import com.br.wb.respositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +25,8 @@ public class TestConfig implements CommandLineRunner {
 
     private final MongoTemplate mongoTemplate;
     private final InstallmentRepository installmentRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
 
 
     @Override
@@ -59,8 +59,8 @@ public class TestConfig implements CommandLineRunner {
         telefones.add(tel2);
         telefones.add(tel3);
 
-        Usuario.RNMDocument rnm = new Usuario.RNMDocument("12345640","classificação","11/10/2005");
-        Usuario usuario = new Usuario(null, "Boliva Safado","boliva@gmail.com","1234","111111111111",rnm,"Bolivia",telefones );
-        usuarioRepository.save(usuario);
+        User.RNMDocument rnm = new User.RNMDocument("12345640","classificação","11/10/2005");
+        User user = new User(null, "Boliva Safado","boliva@gmail.com",encoder.encode("1234"),"111111111111", rnm,"Bolivia", telefones );
+        userRepository.save(user);
     }
 }
