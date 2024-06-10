@@ -2,17 +2,17 @@ package com.br.wb.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.br.wb.dto.UsuarioDTO;
-import com.br.wb.domain.Usuario;
+import com.br.wb.dto.UserDTO;
+import com.br.wb.domain.User;
 
 @Component
-public class UsuarioMapper {
-    public Usuario mapToModel(UsuarioDTO dto) {
-        Usuario.RNMDocument RNM = null;
+public class UserMapper {
+    public User mapToModel(UserDTO dto) {
+        User.RNMDocument RNM = null;
         if(dto.RNM() != null) {
-            RNM = new Usuario.RNMDocument(dto.RNM().getNumber(), dto.RNM().getClassification(), dto.RNM().getDateOfIssue());
+            RNM = new User.RNMDocument(dto.RNM().getNumber(), dto.RNM().getClassification(), dto.RNM().getDateOfIssue());
         }
-        return new Usuario(
+        return new User(
                 dto.id(),
                 dto.name(),
                 dto.email(),
