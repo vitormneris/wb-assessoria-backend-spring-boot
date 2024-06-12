@@ -1,12 +1,11 @@
 package com.br.wb.config;
 
+import com.br.wb.domain.Client;
 import com.br.wb.domain.Installment;
-import com.br.wb.domain.User;
 import com.br.wb.enums.PaymentStatus;
 import com.br.wb.respositories.InstallmentRepository;
-import com.br.wb.respositories.UserRepository;
+import com.br.wb.respositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,7 +13,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,12 +20,10 @@ import java.util.List;
 @Profile("test")
 @RequiredArgsConstructor
 public class TestConfig implements CommandLineRunner {
-
     private final MongoTemplate mongoTemplate;
     private final InstallmentRepository installmentRepository;
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
     private final PasswordEncoder encoder;
-
 
     @Override
     public void run(String... args) throws Exception {
@@ -51,16 +47,9 @@ public class TestConfig implements CommandLineRunner {
 
         installmentRepository.saveAll(Arrays.asList(installment1, installment2, installment3, installment4, installment5, installment6));
 
-        List<String> telefones = new ArrayList<>();
-        String tel1 = "11955696863";
-        String tel2 = "11955696864";
-        String tel3 = "11955696865";
-        telefones.add(tel1);
-        telefones.add(tel2);
-        telefones.add(tel3);
-
-        User.RNMDocument rnm = new User.RNMDocument("12345640","classificação","11/10/2005");
-        User user = new User(null, "Boliva Safado","boliva@gmail.com",encoder.encode("1234"),"111111111111", rnm,"Bolivia", telefones );
-        userRepository.save(user);
+        List<String> phones = Arrays.asList("11955696863", "11955696864", "11955696865");
+        Client.RNMDocument rnm = new Client.RNMDocument("12345640", "classificação", "11/10/2005");
+        Client client = new Client(null, "Boliva Safado", "boliva@gmail.com", encoder.encode("1234"), "111.111.111-111", rnm, "Bolivia", phones);
+        clientRepository.save(client);
     }
 }

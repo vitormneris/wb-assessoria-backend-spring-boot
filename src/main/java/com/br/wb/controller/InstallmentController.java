@@ -2,9 +2,8 @@ package com.br.wb.controller;
 
 import com.br.wb.domain.Installment;
 import com.br.wb.dto.InstallmentDTO;
-import com.br.wb.enums.PaymentStatus;
 import com.br.wb.service.InstallmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,10 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/installments")
+@RequiredArgsConstructor
 public class InstallmentController {
-
-    @Autowired
-    private InstallmentService service;
+    private final InstallmentService service;
 
     @GetMapping()
     public ResponseEntity<List<Installment>> findAll() {

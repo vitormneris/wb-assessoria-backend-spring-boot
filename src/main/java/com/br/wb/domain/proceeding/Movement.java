@@ -11,10 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Movement {
+
     private List<ComplementoTabelado> complementosTabelados = new ArrayList<>();
     private int codigo;
     private String nome;
     private String dataHora;
+
     @Getter
     @Setter
     @NoArgsConstructor

@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.util.List;
 
-
 @Builder
 public record MovementsDTO(
         List<ComplementoTabeladoDTO> complementosTabelados,
@@ -12,7 +11,6 @@ public record MovementsDTO(
         String nome,
         @Getter
         String dataHora) {
-
 
     @Getter
     @Setter
@@ -23,6 +21,5 @@ public record MovementsDTO(
         private int valor;
         private String nome;
         private String descricao;
-
     }
 }

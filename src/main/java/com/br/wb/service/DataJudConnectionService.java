@@ -17,7 +17,6 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class DataJudConnectionService {
-
     private final DeserializeJsonMapper deserializeJsonMapper;
 
     @Value("${api.url}")

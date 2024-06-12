@@ -1,7 +1,5 @@
 package com.br.wb.dto;
 
-import com.br.wb.enums.PaymentStatus;
-
 import java.time.LocalDateTime;
 
 public record InstallmentDTO(

@@ -9,17 +9,12 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface LastProcessMovementWebMapper {
-
     LastProcessMovement mapToDomain(LastProcessMovementDTO dto);
-
     LastProcessMovementDTO mapToDto(LastProcessMovement domain);
-
     Movement mapToDomain (MovementsDTO dto);
-
     MovementsDTO mapToDto(Movement movement);
 
-
-//mapeia o processo
+    //mapeia o processo
     default Proceeding mapToProceeding(LastProcessMovement dto) {
         return Proceeding.builder()
                 .numeroProcesso(dto.getInformations().getNumeroProcesso())
