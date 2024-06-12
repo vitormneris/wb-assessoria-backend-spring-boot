@@ -9,14 +9,14 @@ import lombok.Setter;
 import java.util.List;
 
 @JsonIgnoreProperties
-public record UserDTO(String id,
-                      String name,
-                      String email,
-                      String password,
-                      String CPF,
-                      RNMDocumentDTO RNM,
-                      String country,
-                      List<String> phoneNumber) {
+public record ClientDTO(String id,
+                        String name,
+                        String email,
+                        String password,
+                        String cpf,
+                        RNMDocumentDTO rnm,
+                        String country,
+                        List<String> phones) {
     @Getter
     @Setter
     @AllArgsConstructor

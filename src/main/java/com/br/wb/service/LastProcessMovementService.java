@@ -14,11 +14,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class LastProcessMovementService {
-
     private final LastProcessMovementRepository lastProcessMovementRepository;
     private final DataJudConnectionService dataJudConnectionService;
     private final DeserializeJsonMapper jsonMapper;
-
 
     public LastProcessMovement save(LastProcessMovement lastMove){
         lastMove.setDataHoraUltimaAtualizacao(new Date());

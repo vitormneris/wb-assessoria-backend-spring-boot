@@ -1,6 +1,5 @@
 package com.br.wb.enums;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

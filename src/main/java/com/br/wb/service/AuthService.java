@@ -1,6 +1,6 @@
 package com.br.wb.service;
 
-import com.br.wb.respositories.UserRepository;
+import com.br.wb.respositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class AuthService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow();
+        return clientRepository.findByEmail(username).orElseThrow();
     }
 }

@@ -4,6 +4,7 @@ import com.br.wb.domain.Installment;
 import com.br.wb.dto.InstallmentDTO;
 import com.br.wb.enums.PaymentStatus;
 import com.br.wb.respositories.InstallmentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class InstallmentService {
-
-    @Autowired
-    private InstallmentRepository repository;
+    private final InstallmentRepository repository;
 
     public List<Installment> findAll() {
         return repository.findAll();
