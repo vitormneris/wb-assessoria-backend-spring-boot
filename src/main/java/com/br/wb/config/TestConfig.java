@@ -1,5 +1,6 @@
 package com.br.wb.config;
 
+import com.br.wb.domain.Address;
 import com.br.wb.domain.Client;
 import com.br.wb.domain.Installment;
 import com.br.wb.enums.PaymentStatus;
@@ -49,7 +50,8 @@ public class TestConfig implements CommandLineRunner {
 
         List<String> phones = Arrays.asList("11955696863", "11955696864", "11955696865");
         Client.RNMDocument rnm = new Client.RNMDocument("12345640", "classificação", "11/10/2005");
-        Client client = new Client(null, "Boliva Safado", "boliva@gmail.com", encoder.encode("1234"), "111.111.111-111", rnm, "Bolivia", phones);
+        Address address = new Address("São Paulo", "São paulo", "Brás", "Rua da custura", "01111-000", 1689);
+        Client client = new Client(null, "Boliva Safado", "boliva@gmail.com", encoder.encode("1234"), "111.111.111-111", rnm, "Bolivia", phones, address);
         clientRepository.save(client);
     }
 }

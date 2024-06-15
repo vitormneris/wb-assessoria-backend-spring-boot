@@ -25,13 +25,15 @@ public class Client extends User {
     private RNMDocument rnm;
     private String country;
     private List<String> phones;
+    private Address address;
 
-    public Client(String id, String name, String email, String password, String cpf, RNMDocument rnm, String country, List<String> phones) {
+    public Client(String id, String name, String email, String password, String cpf, RNMDocument rnm, String country, List<String> phones, Address address) {
         super(id, name, email, password);
         this.cpf = cpf;
         this.rnm = rnm;
         this.country = country;
         this.phones = phones;
+        this.address = address;
     }
 
     @Override
