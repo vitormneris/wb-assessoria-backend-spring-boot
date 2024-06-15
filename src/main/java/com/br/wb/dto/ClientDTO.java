@@ -16,7 +16,8 @@ public record ClientDTO(String id,
                         String cpf,
                         RNMDocumentDTO rnm,
                         String country,
-                        List<String> phones) {
+                        List<String> phones,
+                        AddressDTO address) {
     @Getter
     @Setter
     @AllArgsConstructor
