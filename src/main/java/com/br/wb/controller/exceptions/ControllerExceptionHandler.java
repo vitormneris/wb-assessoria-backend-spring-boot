@@ -2,10 +2,7 @@ package com.br.wb.controller.exceptions;
 
 import java.time.Instant;
 
-import com.br.wb.service.exceptions.DatabaseException;
-import com.br.wb.service.exceptions.InvalidFormatException;
-import com.br.wb.service.exceptions.LoginInvalidException;
-import com.br.wb.service.exceptions.ResourceNotFoundException;
+import com.br.wb.service.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -44,6 +41,22 @@ public class ControllerExceptionHandler {
 	public ResponseEntity<StandardError> LoginInvalid(LoginInvalidException e, HttpServletRequest request) {
 		String error = "Login not allowed.";
 		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler(DuplicateRecordException.class)
+	public ResponseEntity<StandardError> duplicateRecord(DuplicateRecordException e, HttpServletRequest request) {
+		String error = "Duplicate record.";
+		HttpStatus status = HttpStatus.CONFLICT;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler(InvalidCpfException.class)
+	public ResponseEntity<StandardError> invalidCpf(InvalidCpfException e, HttpServletRequest request) {
+		String error = "CPF not is valid.";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
