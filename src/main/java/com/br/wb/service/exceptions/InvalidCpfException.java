@@ -1,7 +1,6 @@
 package com.br.wb.service.exceptions;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 public class InvalidCpfException extends RuntimeException {
     @Serial

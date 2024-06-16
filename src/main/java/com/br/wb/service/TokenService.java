@@ -16,11 +16,12 @@ public class TokenService {
                 .withSubject(client.getUsername())
                 .withClaim("id", client.getId())
                 .withExpiresAt(LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.of("-03:00")))
-                .sign(Algorithm.HMAC256("FA3$MP9Jh67#C%"));
+                .sign(Algorithm.HMAC256("AKSJNDSA790KJBASB89HASHF"));
     }
 
     public String getSubject(String token) {
-        return JWT.require(Algorithm.HMAC256("FA3$MP9Jh67#C%"))
-                .build().verify(token).getSubject();
+        String jwt = token.replace("Bearer1 ", "");
+        return JWT.require(Algorithm.HMAC256("AKSJNDSA790KJBASB89HASHF"))
+                .build().verify(jwt).getSubject();
     }
 }
