@@ -3,6 +3,7 @@ package com.br.wb.controller;
 import com.br.wb.domain.Installment;
 import com.br.wb.dto.InstallmentDTO;
 import com.br.wb.service.InstallmentService;
+import com.br.wb.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InstallmentController {
     private final InstallmentService service;
+    private final TokenService tokenService;
 
     @GetMapping()
     public ResponseEntity<List<Installment>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
+    }
+
+    @GetMapping("/token")
+    public ResponseEntity<List<Installment>> findAllByToken(@RequestHeader("Authorization") String token) {
+        List<Installment> obj = service.findAllByUserId(tokenService.getClaimId(token));
+        return ResponseEntity.ok().body(obj);
     }
 
     @GetMapping("/{userId}")

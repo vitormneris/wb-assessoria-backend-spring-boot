@@ -34,7 +34,7 @@ public class InstallmentService {
                     null,
                     installmentDTO.userId(),
                     numberOfInstallment,
-                    "Parcela " + numberOfInstallment + ": " + installmentDTO.description(),
+                    installmentDTO.description(),
                     installmentDTO.totalAmount() / installmentDTO.quantityInstallment(),
                     installmentDTO.date().plusMonths(i),
                     installmentDTO.date().plusMonths(i + 1),
