@@ -29,7 +29,7 @@ public class ClientController {
 
     @GetMapping(value = "/token")
     public ResponseEntity<Client> findByToken(@RequestHeader("Authorization") String token) {
-        Client obj = service.findByEmail(tokenService.getSubject(token));
+        Client obj = service.findById(tokenService.getClaimId(token));
         return ResponseEntity.ok().body(obj);
     }
 
