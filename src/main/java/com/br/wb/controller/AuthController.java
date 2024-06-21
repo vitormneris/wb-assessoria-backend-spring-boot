@@ -4,7 +4,12 @@ import com.br.wb.domain.Client;
 import com.br.wb.domain.inheritance.User;
 import com.br.wb.dto.LoginDTO;
 import com.br.wb.service.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,26 +21,49 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "autenticação")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
-    @PostMapping("/authenticate")
+
+    @Operation(summary = "Faz autenticação do usuário através do login ", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Logado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
+            @ApiResponse(responseCode = "422", description = "Dados da requisição inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro de servidor"),
+    })
+    @PostMapping(value = "/authenticate", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String authenticate(@RequestBody LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-            new UsernamePasswordAuthenticationToken(loginDTO.email(), loginDTO.password());
+                new UsernamePasswordAuthenticationToken(loginDTO.email(), loginDTO.password());
         Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         var user = (User) authenticate.getPrincipal();
         return tokenService.tokenGeneration(user);
     }
-
+  
+    @Operation(summary = "Obtem a rota protegida para cliente", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aceito com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
+            @ApiResponse(responseCode = "422", description = "Dados da requisição inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro de servidor"),
+    })
     @GetMapping("/client/protected")
     public ResponseEntity<String> getProtectedResourceClient() {
         return ResponseEntity.ok("Allowed client");
     }
 
+      @Operation(summary = "Obtem a rota protegida para administrador", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aceito com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Parâmetros inválidos"),
+            @ApiResponse(responseCode = "422", description = "Dados da requisição inválidos"),
+            @ApiResponse(responseCode = "500", description = "Erro de servidor"),
+    })
     @GetMapping("/administrator/protected")
     public ResponseEntity<String> getProtectedResourceAdiministrator() {
-        return ResponseEntity.ok("Allowed administrator");
+        return ResponseEntity.ok("Allowed administrator"); 
     }
 }
