@@ -3,6 +3,7 @@ package com.br.wb.service;
 import com.br.wb.domain.Address;
 import com.br.wb.domain.Administrator;
 import com.br.wb.domain.Client;
+import com.br.wb.dto.ContactDTO;
 import com.br.wb.service.exceptions.InvalidCpfException;
 import com.br.wb.service.exceptions.InvalidFormatException;
 import org.springframework.stereotype.Service;
@@ -129,5 +130,25 @@ public class CheckFiedService {
 
         if (!(cpfList.get(9).equals(Integer.toString(firstDigit)) && cpfList.get(10).equals(Integer.toString(secondtDigit))))
             throw new InvalidCpfException();
+    }
+
+    public void checkFieldsContact(ContactDTO contactDTO) throws InvalidFormatException {
+        if (contactDTO == null) throw new InvalidFormatException("The fields can not be null.");
+
+        isNullOrBlank(contactDTO.name());
+        if (!contactDTO.name().matches("^[\\p{L} ]+$"))
+            throw new InvalidFormatException("Name", contactDTO.name());
+
+        isNullOrBlank(contactDTO.email());
+        if (!contactDTO.email().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
+            throw new InvalidFormatException("E-mail", contactDTO.email());
+
+        isNullOrBlank(contactDTO.phone());
+        if (!contactDTO.phone().matches("\\(?\\d{2}\\)? ?(?:\\d{4,5}-?\\d{4}|\\d{4}-?\\d{4})$"))
+            throw new InvalidFormatException("Phone", contactDTO.phone());
+
+        isNullOrBlank(contactDTO.message());
+        if (!contactDTO.name().matches("^[\\p{L} ]+$"))
+            throw new InvalidFormatException("Message", contactDTO.message());
     }
 }
