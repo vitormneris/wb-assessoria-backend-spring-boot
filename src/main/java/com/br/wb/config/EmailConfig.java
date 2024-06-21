@@ -14,6 +14,4 @@ public class EmailConfig {
     public EmailService emailNotificationListener() {
         return new EmailService();
     }
-
-
 }
