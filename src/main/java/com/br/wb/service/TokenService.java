@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.br.wb.domain.Client;
+import com.br.wb.domain.inheritance.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,10 @@ import java.util.Map;
 public class TokenService {
     private final String secretKey = "AKSJNDSA790KJBASB89HASHF";
 
-    public String tokenGeneration(Client client) {
+    public String tokenGeneration(User user) {
         return JWT.create()
-                .withSubject(client.getUsername())
-                .withClaim("id", client.getId())
+                .withSubject(user.getUsername())
+                .withClaim("id", user.getId())
                 .withExpiresAt(LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.of("-03:00")))
                 .sign(Algorithm.HMAC256(secretKey));
     }

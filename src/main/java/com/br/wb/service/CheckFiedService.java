@@ -1,6 +1,7 @@
 package com.br.wb.service;
 
 import com.br.wb.domain.Address;
+import com.br.wb.domain.Administrator;
 import com.br.wb.domain.Client;
 import com.br.wb.service.exceptions.InvalidCpfException;
 import com.br.wb.service.exceptions.InvalidFormatException;
@@ -12,6 +13,23 @@ import java.util.List;
 
 @Service
 public class CheckFiedService {
+
+
+    public void checkFieldsAdministrator(Administrator administrator) throws InvalidFormatException {
+        if (administrator == null) throw new InvalidFormatException("The fields can not be null.");
+
+        isNullOrBlank(administrator.getName());
+        if (!administrator.getName().matches("^[a-zA-Z ]+$"))
+            throw new InvalidFormatException("Name", administrator.getName());
+
+        isNullOrBlank(administrator.getEmail());
+        if (!administrator.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
+            throw new InvalidFormatException("E-mail", administrator.getEmail());
+
+        isNullOrBlank(administrator.getPassword());
+        if (!(administrator.getPassword().length() >= 8))
+            throw new InvalidFormatException("Format is not valid. Password");
+    }
 
     public void checkFieldsClient(Client client) throws InvalidFormatException {
         if (client == null) throw new InvalidFormatException("The fields can not be null.");

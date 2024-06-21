@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,11 +34,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/clients").permitAll()
                         .requestMatchers("/", "/swagger-ui/**", "/swagger-ui/index.html#/","v3/api-docs/**").permitAll()
+                                       
+                        .requestMatchers(HttpMethod.GET, "/administrator/protected").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/administrators").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/administrator/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/administrator/email/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/administrator").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/administrator/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/administrator/**").hasRole("ADMIN")
+                                       
+                        .requestMatchers(HttpMethod.GET, "/installments").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/installments").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/installments/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/installments/dueDate/**").hasRole("ADMIN")
+                                       
                         .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
