@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.br.wb.domain.inheritance.User;
+import com.br.wb.enums.Values;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,17 +29,12 @@ public class Client extends User {
     private Address address;
 
     public Client(String id, String name, String email, String password, String cpf, RNMDocument rnm, String country, List<String> phones, Address address) {
-        super(id, name, email, password);
+        super(id, name, email, password, Values.CLIENT);
         this.cpf = cpf;
         this.rnm = rnm;
         this.country = country;
         this.phones = phones;
         this.address = address;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
     }
 
     @Getter

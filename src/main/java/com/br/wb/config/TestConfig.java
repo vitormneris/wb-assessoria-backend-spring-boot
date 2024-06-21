@@ -1,9 +1,12 @@
 package com.br.wb.config;
 
 import com.br.wb.domain.Address;
+import com.br.wb.domain.Administrator;
 import com.br.wb.domain.Client;
 import com.br.wb.domain.Installment;
 import com.br.wb.enums.PaymentStatus;
+import com.br.wb.enums.Values;
+import com.br.wb.respositories.AdministratorRepository;
 import com.br.wb.respositories.InstallmentRepository;
 import com.br.wb.respositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class TestConfig implements CommandLineRunner {
     private final MongoTemplate mongoTemplate;
     private final InstallmentRepository installmentRepository;
     private final ClientRepository clientRepository;
+    private final AdministratorRepository administratorRepository;
     private final PasswordEncoder encoder;
 
     @Override
@@ -33,8 +37,11 @@ public class TestConfig implements CommandLineRunner {
         List<String> phones = Arrays.asList("11955696863", "11955696864", "11955696865");
         Client.RNMDocument rnm = new Client.RNMDocument("12345640", "classificação", "11/10/2005");
         Address address = new Address("São Paulo", "São paulo", "Brás", "Rua da custura", "01111-000", 1689);
-        Client client = new Client(null, "Boliva Safado", "boliva@gmail.com", encoder.encode("1234"), "111.111.111-111", rnm, "Bolivia", phones, address);
+        Client client = new Client(null, "Boliva", "client@gmail.com", encoder.encode("1234"), "111.111.111-111", rnm, "Bolivia", phones, address);
         clientRepository.save(client);
+
+        Administrator administrator = new Administrator(null, "Cristiane", "admin@gmail.com", encoder.encode("1234"));
+        administratorRepository.save(administrator);
 
         // UserId: 123
         Installment installment1 =

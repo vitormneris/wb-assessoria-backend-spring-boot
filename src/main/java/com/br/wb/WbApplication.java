@@ -9,7 +9,7 @@ public class WbApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WbApplication.class, args);
 	}
-//
+
 //	@Bean
 //	public WebDriver webDriver() {
 //		ChromeOptions options = new ChromeOptions();
@@ -22,4 +22,5 @@ public class WbApplication {
 //		webDriver.get("https://web.whatsapp.com/");
 //		return webDriver;
 //	}
+
 }
