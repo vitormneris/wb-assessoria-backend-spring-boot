@@ -19,7 +19,7 @@ public class CheckFiedService {
         if (administrator == null) throw new InvalidFormatException("The fields can not be null.");
 
         isNullOrBlank(administrator.getName());
-        if (!administrator.getName().matches("^[a-zA-Z ]+$"))
+        if (!administrator.getName().matches("^[\\p{L} ]+$"))
             throw new InvalidFormatException("Name", administrator.getName());
 
         isNullOrBlank(administrator.getEmail());
@@ -39,7 +39,7 @@ public class CheckFiedService {
             throw new InvalidFormatException("CPF", client.getCpf());
 
         isNullOrBlank(client.getName());
-        if (!client.getName().matches("^[a-zA-Z ]+$"))
+        if (!client.getName().matches("^[\\p{L} ]+$"))
             throw new InvalidFormatException("Name", client.getName());
 
         isNullOrBlank(client.getEmail());
@@ -47,7 +47,7 @@ public class CheckFiedService {
             throw new InvalidFormatException("E-mail", client.getEmail());
 
         isNullOrBlank(client.getCountry());
-        if (!client.getCountry().matches("^[a-zA-Z ]+$"))
+        if (!client.getCountry().matches("^[\\p{L} ]+$"))
             throw new InvalidFormatException("Country", client.getCountry());
 
         isNullOrBlank(client.getPhones());
@@ -67,7 +67,7 @@ public class CheckFiedService {
         if (address == null) throw new InvalidFormatException("The fields can not be null.");
 
         isNullOrBlank(address.getState());
-        if (!address.getState().matches("^[a-zA-Z ]+$"))
+        if (!address.getState().matches("^[\\p{L} ]+$"))
             throw new InvalidFormatException("State", address.getState());
 
         isNullOrBlank(address.getCity());

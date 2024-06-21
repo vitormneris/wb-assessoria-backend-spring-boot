@@ -1,6 +1,5 @@
 package com.br.wb.controller;
 
-import com.br.wb.domain.Client;
 import com.br.wb.domain.inheritance.User;
 import com.br.wb.dto.LoginDTO;
 import com.br.wb.service.TokenService;

@@ -59,11 +59,24 @@ public class ClientController {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    @PutMapping(value = "/token")
+    public ResponseEntity<Client> updateByToken(@RequestHeader("Authorization") String token, @RequestBody ClientDTO clientDTO) {
+        Client client = mapper.mapToModel(clientDTO);
+        Client obj = service.update(tokenService.getClaimId(token), client);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Client> update(@PathVariable String id, @RequestBody ClientDTO clientDTO) {
         Client client = mapper.mapToModel(clientDTO);
         Client obj = service.update(id, client);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @DeleteMapping(value = "/token")
+    public ResponseEntity<Void> deleteByToken(@RequestHeader("Authorization") String token) {
+        service.delete(tokenService.getClaimId(token));
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{id}")
