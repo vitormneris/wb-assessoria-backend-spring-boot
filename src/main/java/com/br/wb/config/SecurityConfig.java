@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/clients").permitAll()
                         .requestMatchers("/", "/swagger-ui/**", "/swagger-ui/index.html#/","v3/api-docs/**").permitAll()
-                                       
+                        .requestMatchers(HttpMethod.POST, "/processos/ultimomovimento").permitAll()
                         .requestMatchers(HttpMethod.GET, "/administrator/protected").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/administrators").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/administrator/**").hasRole("ADMIN")
