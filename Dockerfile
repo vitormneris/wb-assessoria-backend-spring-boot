@@ -18,8 +18,8 @@ WORKDIR /app
 # Copiar o arquivo JAR gerado durante o build
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 
-# Expor a porta 8080
-EXPOSE 8080
+# Expor a porta 8084
+EXPOSE 8084
 
 # Definir o comando de entrada
 CMD ["java", "-jar", "app.jar"]
