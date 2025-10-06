@@ -38,7 +38,7 @@ git clone https://github.com/vitormneris/wb-assessoria-backend-spring-boot.git
  ```
 ### 2. Acessar o diretório do projeto
 ```bash
-cd welcome-to-brasil
+cd wb-assessoria-backend-spring-boot
  ```
 ### 3. Executar a aplicação com Gradle
 ```bash
