@@ -34,7 +34,7 @@ Entre as principais funcionalidades:
 
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/seu-usuario/welcome-to-brasil.git
+git clone https://github.com/vitormneris/wb-assessoria-backend-spring-boot.git
  ```
 ### 2. Acessar o diretório do projeto
 ```bash
